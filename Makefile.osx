@@ -1,0 +1,25 @@
+#DBG += -g
+#DBG += -pg
+CC	= gcc
+CFLAGS = -O2 -Wall -I/Library/Frameworks/SDL.framework/Headers $(DBG)
+
+LDFLAGS += -framework SDL -framework Cocoa -o $@
+
+
+all: bomber
+bomber: gfx.o bomber.o sound.o SDLMain.o
+
+
+SDLMain.o: SDLmain.m
+bomber.o: bomber.c bomber.h gfx.h
+gfx.o: gfx.c bomber.h gfx.h
+sound.o: sound.c bomber.h
+
+clean:
+	rm -f *.o bomber
+
+test:	all
+	./bomber
+
+
+

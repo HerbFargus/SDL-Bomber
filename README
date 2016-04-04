@@ -1,0 +1,94 @@
+David Ashley
+dash@xdr.com
+990207 11:24 PST
+
+This is work in progress and might be of absolutely no use whatsoever.
+
+This is a Bomberman clone. I bought a game called Atomic Bomberman and found
+it awful, there were intolerable delays after each game in network play while
+the game was downloading data (what data?) over the network. Really crappy job
+they did but I liked the artwork and sound effects.
+
+Atomic Bomberman was a DOS/win95 game. I looked under linux games and found
+xblast but it was unusable for various reasons. For example its network
+support just relies on xwindows networking--before entering the game you've
+got to type in the host:display of each person who will be playing. Only
+the main machine gets any sound. Also in the game you kept moving in whatever
+direction you had last hit until you hit a wall or hit another direction.
+There was no point in using the source as a starting point, there were so
+many critical design flaws in that version I decided to write my own game from
+scratch.
+
+Currently the game will most likely only be playable on a LAN.
+
+Some machine must run the matcher program. Players register their game with
+the matcher machine, and joiners query the matcher machine to get a list of
+active games. On xdr.com there is a matcher program running and the bomber.c
+mname[] definition points to xdr.com. I tried it and it didn't work on my
+own LAN through a firewall. You can try the game as is and it might work using
+xdr.com as a matcher. Otherwise you'll have to run your own matcher daemon on
+some machine. Assuming you have 3 machines tom, dick and harry and you want
+to play a 3 player game, you would modify bomber.c's mname definiton to
+be (line 47 of bomber.c)
+char mname[]="tom";
+Then on tom run the matcher program as a background task.
+Compile and distribute duplicate copies of bomber and data/* files, then
+run bomber on each machine. The menus should be self explanatory--one person
+selects HOST NETWORK GAME and the other people select JOIN NETWORK GAME.
+
+----------------- How to play  ---------------------------
+You've got to blow up other players to win. Spacebar drops a bomb. Get away
+and hope your enemy gets hit by the flame. The 'b' key is a 2nd control
+for when you are lucky enough to pick up the bomb control--looks like a
+bomb with a timer on it. When you have that the bomb won't go off until
+detonated by another bomb, you are killed, or you press 'b'.
+
+Blowing up bricks might result in prizes, most of which are good.
+Skates = speed up
+Bomb = allow you to have one more active bomb
+flame = Increase bomb strength
+turtle = makes you move very slowly
+bomb with timer = controlled bomb detonation with 'b' key.
+gold flame = Set flame strength to max
+
+There isn't much point in playing the game alone (single player). In that
+case the only thing to avoid is accidentally killing yourself. Big deal...
+It's really a multiplayer game.
+
+----------------- Left to do: -------------------
+Come up with a better scheme for internet play, as it is any latency will
+kill the game playability. Works fine on LAN though.
+
+Figure out why matching doesn't work through a firewall...
+[Specific case is 2 machines on my LAN cannot be matched by a machine that
+is outside the firewall, and the firewall machine is doing IP masquerading.
+Net result is matcher gets remapped IP addresses and these mean nothing
+inside the LAN, only make sense when used from the outside world]
+
+Score.
+
+Remap movement keys not implemented.
+
+Allow game hoster to set network game options and have them visible to players
+who have joined the game.
+
+Alternate gfx sets.
+
+Better handling of 8 bit mode with limited palette.
+
+Computer controlled things that can kill you.
+
+Other bonus types that can be harmful, such as skull.
+
+Internet play where everything is asynchronous, thus playable with a fixed
+latency. As it is now slaves send to master, then master sends back to
+slaves, and this data xfer must complete before the game can advance a step.
+For internet this would be intolerable. I've never tried though...
+
+Better docs, online explanations, attract mode...
+
+Single player with computer controlled figures that must be killed/avoided.
+
+----------------
+Direct comments, complaints and questions to dash@xdr.com
+This code is GPL.

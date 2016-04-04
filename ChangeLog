@@ -1,0 +1,43 @@
+Fri Jun 27 16:31:51 EDT 2008
+David Ashley
+dashxdr@gmail.com
+
+Turned on -Wall in Makefile, got rid of all the warnings. Made Makefile.osx
+for building on OSX. Added some syntax checking for passing the "-m <host>"
+command line parameter. Got rid of all the damage lists (rectangles on the
+window that need to be updated) and instead just do a full screen update
+whenever necessary.
+---------------------------------------------------------------------------
+Sun Jul 18 09:56:12 PDT 1999
+Changed secondary control from ALT keys to 'b' key. On win32 the alt has
+special meaning and can cause events to be dropped, so a key up event is
+lost and the player gets stuck moving in some direction.
+
+Fri Jul 16 08:23:22 PDT 1999
+Finished sdl port, the sockets problem stemmed from windoze not implementing
+Berkeley Sockets in a compatible manner. The program must call
+WSAStartup and WSACleanup on begin and end. Also instead of close on a
+socket you've got to call closesocket. This requires ugly
+#if defined(__WIN32__)
+...
+#endif
+sections in the code, which defeats the purpose of a nice platform
+indpendent source tree. Blame it on M$.
+
+Thu Jul 15 08:24:18 PDT 1999
+Began converting X code to SDL code for portability. Having trouble with
+sockets library under win32. Converted all the graphics rendering routines to
+SDL, also dealt with the events translation. Under win32 the alt key can
+cause stuck keys. Still no pause() equivalent, ie wait until the timer
+interrupt occurs, but stay off the bus without eating cpu cycles.
+
+No sound conversion yet.
+
+Mon Jul  5 13:12:43 PDT 1999
+Finally got around to dealing with old email... As per Christoph Frick's
+<ridcully@futurebyte.net> suggestion I added his idea of a
+"-m <matcher>" command line argument to
+specify at run time the matcher to use.
+Thanks Christoph!
+
+I've bumped the version to 101.

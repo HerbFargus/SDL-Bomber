@@ -1,0 +1,9 @@
+# Makefile for bomber
+#
+
+TARGET = bomber
+USEINET = true
+
+include ../GNUmake
+
+$(TARGET): bomber.o gfx.o sound.o
